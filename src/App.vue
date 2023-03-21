@@ -10,10 +10,11 @@
 </template>
 
 <script>
-import store from "./store";
+import { mapActions } from "vuex";
 export default {
-  async created() {
-    store.fetchArticles();
+  methods: mapActions(["fetchArticles"]),
+  created() {
+    this.fetchArticles();
   },
 };
 </script>

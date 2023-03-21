@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import store from "@/store";
+import { mapGetters, mapMutations } from "vuex";
 export default {
   name: "ArticleForm",
   data: () => {
@@ -27,8 +27,10 @@ export default {
     };
   },
   methods: {
+    ...mapMutations(["pushArticle"]),
+    ...mapGetters(["getArticlesLength"]),
     addArticle() {
-      store.pushArticle(this.article);
+      this.pushArticle({ ...this.article, id: this.getArticlesLength() + 1 });
       this.$router.push("/");
     },
   },

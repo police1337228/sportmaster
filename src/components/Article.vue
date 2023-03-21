@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import store from "@/store";
+import { mapMutations } from "vuex";
 export default {
   name: "Article",
   data: () => {
@@ -33,8 +33,9 @@ export default {
     },
   },
   methods: {
+    ...mapMutations(["setArticle"]),
     changeArticle() {
-      store.setArticle(this.id);
+      this.setArticle(this.id);
     },
   },
   watch: {

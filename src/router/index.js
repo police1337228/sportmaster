@@ -1,6 +1,5 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-// import HomeView from "../views/HomeView.vue";
 import About from "../components/About.vue";
 import ArticleForm from "../components/ArticleForm.vue";
 import Article from "../components/Article.vue";
@@ -29,7 +28,8 @@ const routes = [
   {
     path: "/article/:id",
     component: Article,
-    props: (route) => store.state.articles.find((x) => x.id == route.params.id),
+    props: (route) =>
+      store.state.articles.articles.find((x) => x.id == route.params.id),
   },
 ];
 

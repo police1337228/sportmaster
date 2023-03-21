@@ -1,24 +1,30 @@
 <template>
   <div class="hello">
     <!-- <ArticleForm @addArticle="pushArticle" /> -->
-    <ul>
-      <Loader v-if="articles.length < 1" />
-      <Article
-        v-else
-        v-for="article in articles"
-        :key="article.id"
-        :title="article.title"
-        :body="article.body"
-        :completed="article.completed"
-        :id="article.id"
-        @changeArticle="setArticle"
-      />
-    </ul>
+    <Loader v-if="isLoading" />
+    <div v-else-if="isError">
+      {{ isError }} <br />
+      <br />
+      <button @click.prevent="fetchArticles">Повторить загрузку</button>
+    </div>
+    <div v-else>
+      <p>Количество статей: {{ getArticlesLength }}</p>
+      <ul>
+        <Article
+          v-for="article in getArticles"
+          :key="article.id"
+          :title="article.title"
+          :body="article.body"
+          :completed="article.completed"
+          :id="article.id"
+        />
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
-import store from "@/store";
+import { mapActions, mapGetters } from "vuex";
 import Article from "./Article";
 import Loader from "./Loader.vue";
 export default {
@@ -27,29 +33,14 @@ export default {
     Article,
     Loader,
   },
-  data: () => {
-    return {};
-  },
-  async mounted() {},
   computed: {
-    articles() {
-      return store.getArticles();
-    },
+    ...mapGetters(["isLoading", "getArticles", "getArticlesLength", "isError"]),
+  },
+  methods: {
+    ...mapActions(["fetchArticles"]),
   },
   props: {
     msg: String,
-  },
-  methods: {
-    pushArticle(a) {
-      this.articles.push(a);
-    },
-    setArticle(id) {
-      this.articles.forEach((a) => {
-        if (a.id === id) {
-          a.completed = !a.completed;
-        }
-      });
-    },
   },
 };
 </script>
