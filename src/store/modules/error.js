@@ -1,4 +1,8 @@
-import { fetchArticles as fetchArticlesList } from "../services/fetch";
+import {
+  fetchArticles as fetchArticlesList,
+  abortArticles as abortArticlesList,
+} from "../services/fetch";
+import axios from "axios";
 
 export default {
   state: {
@@ -37,5 +41,14 @@ export default {
         commit("setLoading", false);
       }
     },
+    abortArticles({ commit }) {
+      abortArticlesList();
+      commit("setLoading", false);
+    },
   },
 };
+
+// {
+//   commit("setError", e.message);
+//   commit("setLoading", false);
+// }

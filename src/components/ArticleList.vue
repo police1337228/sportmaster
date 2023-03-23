@@ -1,7 +1,12 @@
 <template>
   <div class="hello">
     <!-- <ArticleForm @addArticle="pushArticle" /> -->
-    <Loader v-if="isLoading" />
+    <div v-if="isLoading">
+      <Loader />
+      <br />
+      <br />
+      <button @click.prevent="abortArticles">Отменить загрузку</button>
+    </div>
     <div v-else-if="isError">
       {{ isError }} <br />
       <br />
@@ -37,7 +42,7 @@ export default {
     ...mapGetters(["isLoading", "getArticles", "getArticlesLength", "isError"]),
   },
   methods: {
-    ...mapActions(["fetchArticles"]),
+    ...mapActions(["fetchArticles", "abortArticles"]),
   },
   props: {
     msg: String,

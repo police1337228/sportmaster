@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import { Types } from "@/store/types";
 import { mapGetters, mapActions } from "vuex";
 export default {
   name: "ArticleForm",

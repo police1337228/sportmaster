@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import { Types } from "@/store/types";
 import { mapActions } from "vuex";
 export default {
   name: "Article",

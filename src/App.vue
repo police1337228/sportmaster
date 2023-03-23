@@ -11,6 +11,8 @@
 
 <script>
 import { mapActions } from "vuex";
+import { Types } from "./store/types";
+
 export default {
   methods: mapActions(["fetchArticles"]),
   created() {
