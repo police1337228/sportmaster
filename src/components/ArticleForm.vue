@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "ArticleForm",
   data: () => {
@@ -27,7 +27,7 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(["pushArticle"]),
+    ...mapActions(["pushArticle"]),
     ...mapGetters(["getArticlesLength"]),
     addArticle() {
       this.pushArticle({ ...this.article, id: this.getArticlesLength() + 1 });

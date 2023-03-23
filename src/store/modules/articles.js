@@ -1,10 +1,6 @@
-import { fetchArticles as fetchArticlesList } from "../services/fetch";
-
 export default {
   state: {
     articles: [],
-    loading: false,
-    error: "",
   },
   getters: {
     getArticles(state) {
@@ -12,12 +8,6 @@ export default {
     },
     getArticlesLength(state) {
       return state.articles.length;
-    },
-    isLoading(state) {
-      return state.loading;
-    },
-    isError(state) {
-      return state.error;
     },
   },
   mutations: {
@@ -34,27 +24,16 @@ export default {
         }
       });
     },
-    setLoading(state, loading) {
-      state.loading = Boolean(loading);
-    },
-    setError(state, error) {
-      state.error = error;
-    },
-    clearError(state) {
-      state.error = "";
-    },
   },
   actions: {
-    async fetchArticles({ commit, state }) {
-      commit("setLoading", true);
-      try {
-        let a = await fetchArticlesList();
-        commit("setArticles", a);
-        commit("setLoading", false);
-      } catch (e) {
-        commit("setError", e.message);
-        commit("setLoading", false);
-      }
+    setArticles({ commit }, articles) {
+      commit("setArticles", articles);
+    },
+    pushArticle({ commit }, article) {
+      commit("pushArticle", article);
+    },
+    setArticle({ commit }, id) {
+      commit("setArticle", id);
     },
   },
 };

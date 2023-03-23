@@ -6,33 +6,36 @@ export default {
     error: "",
   },
   getters: {
-    getArticles(state) {
-      return state.articles;
+    isLoading(state) {
+      return state.loading;
     },
-    getArticlesLength(state) {
-      return state.articles.length;
+    isError(state) {
+      return state.error;
     },
   },
   mutations: {
-    setArticles(state, articles) {
-      state.articles = articles;
+    setLoading(state, loading) {
+      state.loading = Boolean(loading);
     },
-    pushArticle(state, article) {
-      state.articles.push(article);
+    setError(state, error) {
+      state.error = error;
     },
-    setArticle(state, id) {
-      state.articles.forEach((a) => {
-        if (a.id === id) {
-          a.completed = !a.completed;
-        }
-      });
+    clearError(state) {
+      state.error = "";
     },
   },
   actions: {
-    fetchArticles({ commit, state }) {
-      const a = fetchArticlesList();
-      commit("setArticles");
+    async fetchArticles({ commit }) {
+      commit("clearError");
+      commit("setLoading", true);
+      try {
+        let a = await fetchArticlesList();
+        commit("setArticles", a);
+        commit("setLoading", false);
+      } catch (e) {
+        commit("setError", e.message);
+        commit("setLoading", false);
+      }
     },
   },
-  modules: {},
 };
