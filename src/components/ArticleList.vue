@@ -1,6 +1,5 @@
 <template>
   <div class="hello">
-    <!-- <ArticleForm @addArticle="pushArticle" /> -->
     <ul>
       <Loader v-if="articles.length < 1" />
       <Article
@@ -38,18 +37,6 @@ export default {
   },
   props: {
     msg: String,
-  },
-  methods: {
-    pushArticle(a) {
-      this.articles.push(a);
-    },
-    setArticle(id) {
-      this.articles.forEach((a) => {
-        if (a.id === id) {
-          a.completed = !a.completed;
-        }
-      });
-    },
   },
 };
 </script>
