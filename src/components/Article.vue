@@ -9,7 +9,8 @@
 </template>
 
 <script>
-import store from "@/store";
+import { Types } from "@/store/types";
+import { mapActions } from "vuex";
 export default {
   name: "Article",
   data: () => {
@@ -33,8 +34,9 @@ export default {
     },
   },
   methods: {
+    ...mapActions(["setArticle"]),
     changeArticle() {
-      store.setArticle(this.id);
+      this.setArticle(this.id);
     },
   },
   watch: {

@@ -14,7 +14,8 @@
 </template>
 
 <script>
-import store from "@/store";
+import { Types } from "@/store/types";
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "ArticleForm",
   data: () => {
@@ -27,8 +28,10 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["pushArticle"]),
+    ...mapGetters(["getArticlesLength"]),
     addArticle() {
-      store.pushArticle(this.article);
+      this.pushArticle({ ...this.article, id: this.getArticlesLength() + 1 });
       this.$router.push("/");
     },
   },

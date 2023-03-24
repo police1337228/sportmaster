@@ -1,5 +1,6 @@
 <template>
   <div class="hello">
+<<<<<<< HEAD
     <ul>
       <Loader v-if="articles.length < 1" />
       <Article
@@ -13,11 +14,38 @@
         @changeArticle="setArticle"
       />
     </ul>
+=======
+    <!-- <ArticleForm @addArticle="pushArticle" /> -->
+    <div v-if="isLoading">
+      <Loader />
+      <br />
+      <br />
+      <button @click.prevent="abortArticles">Отменить загрузку</button>
+    </div>
+    <div v-else-if="isError">
+      {{ isError }} <br />
+      <br />
+      <button @click.prevent="fetchArticles">Повторить загрузку</button>
+    </div>
+    <div v-else>
+      <p>Количество статей: {{ getArticlesLength }}</p>
+      <ul>
+        <Article
+          v-for="article in getArticles"
+          :key="article.id"
+          :title="article.title"
+          :body="article.body"
+          :completed="article.completed"
+          :id="article.id"
+        />
+      </ul>
+    </div>
+>>>>>>> 72e049b0c17f5508739942bb52d2f40f306354d6
   </div>
 </template>
 
 <script>
-import store from "@/store";
+import { mapActions, mapGetters } from "vuex";
 import Article from "./Article";
 import Loader from "./Loader.vue";
 export default {
@@ -26,14 +54,11 @@ export default {
     Article,
     Loader,
   },
-  data: () => {
-    return {};
-  },
-  async mounted() {},
   computed: {
-    articles() {
-      return store.getArticles();
-    },
+    ...mapGetters(["isLoading", "getArticles", "getArticlesLength", "isError"]),
+  },
+  methods: {
+    ...mapActions(["fetchArticles", "abortArticles"]),
   },
   props: {
     msg: String,
