@@ -1,35 +1,32 @@
 <template>
-  <div class="hello">
-<<<<<<< HEAD
-    <ul>
-      <Loader v-if="articles.length < 1" />
-      <Article
-        v-else
-        v-for="article in articles"
-        :key="article.id"
-        :title="article.title"
-        :body="article.body"
-        :completed="article.completed"
-        :id="article.id"
-        @changeArticle="setArticle"
-      />
-    </ul>
-=======
-    <!-- <ArticleForm @addArticle="pushArticle" /> -->
+  <v-sheet class="hello">
     <div v-if="isLoading">
       <Loader />
-      <br />
-      <br />
-      <button @click.prevent="abortArticles">Отменить загрузку</button>
+      <v-row>
+        <v-col col="3">
+          <v-btn inline-block @click.prevent="abortArticles" class="ma-2">
+            Отменить загрузку
+          </v-btn>
+        </v-col>
+      </v-row>
     </div>
     <div v-else-if="isError">
-      {{ isError }} <br />
-      <br />
-      <button @click.prevent="fetchArticles">Повторить загрузку</button>
+      {{ isError }}
+      <v-row>
+        <v-col col="3">
+          <v-btn inline-block @click.prevent="fetchArticles" class="ma-2"
+            >Повторить загрузку</v-btn
+          >
+        </v-col>
+      </v-row>
     </div>
     <div v-else>
-      <p>Количество статей: {{ getArticlesLength }}</p>
-      <ul>
+      <v-row>
+        <v-col col="12">
+          <p class="text-h3">Количество статей: {{ getArticlesLength }}</p>
+        </v-col>
+      </v-row>
+      <v-row class="flex-wrap pa-2">
         <Article
           v-for="article in getArticles"
           :key="article.id"
@@ -38,10 +35,9 @@
           :completed="article.completed"
           :id="article.id"
         />
-      </ul>
+      </v-row>
     </div>
->>>>>>> 72e049b0c17f5508739942bb52d2f40f306354d6
-  </div>
+  </v-sheet>
 </template>
 
 <script>
@@ -81,5 +77,10 @@ li {
 }
 a {
   color: #42b983;
+}
+@media screen and (max-width: 768px) {
+  .text-h2 {
+    font-size: 12px !important;
+  }
 }
 </style>

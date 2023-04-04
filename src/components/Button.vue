@@ -1,5 +1,5 @@
 <template>
-  <button>{{ text }}</button>
+  <v-btn block class="mt-2">{{ text }}</v-btn>
 </template>
 
 <script>

@@ -1,20 +1,56 @@
 <template>
-  <div>
-    <form class="form" @submit.prevent="addArticle">
-      <input type="text" placeholder="Title" v-model="article.title" />
-      <input type="text" placeholder="Author" v-model="article.body" /><textarea
-        placeholder="Body"
-      ></textarea>
-      <label
-        ><input type="checkbox" v-model="article.completed" /> Published</label
+  <v-sheet>
+    <v-dialog width="600" class="outlined">
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn color="red lighten-2" dark v-bind="attrs" v-on="on">
+          Click Me
+        </v-btn>
+      </template>
+      <v-form
+        @submit.prevent="addArticle"
+        class="elevation-24"
+        style="background: white"
       >
-      <input type="submit" value="Add" />
-    </form>
-  </div>
+        <v-container>
+          <v-row class="flex-column justify-center align-center">
+            <v-col cols="12" md="6">
+              <CustomTextfield
+                v-model="article.title"
+                :counter="25"
+                label="Title"
+                required
+                dense
+                :outlined="false"
+                color="secondary"
+              ></CustomTextfield>
+            </v-col>
+            <v-col cols="12" md="6">
+              <v-textarea
+                v-model="article.body"
+                :counter="250"
+                label="Todo"
+                required
+              ></v-textarea>
+            </v-col>
+            <v-col cols="12" md="6">
+              <v-checkbox
+                v-model="article.completed"
+                label="Completed?"
+                required
+              ></v-checkbox>
+              <v-btn type="submit" block class="mt-2">
+                <v-icon left dark> mdi-check </v-icon> Submit
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-form>
+    </v-dialog>
+  </v-sheet>
 </template>
 
 <script>
-import { Types } from "@/store/types";
+import CustomTextfield from "./CustomTextfield.vue";
 import { mapGetters, mapActions } from "vuex";
 export default {
   name: "ArticleForm",
@@ -26,6 +62,9 @@ export default {
         completed: false,
       },
     };
+  },
+  components: {
+    CustomTextfield,
   },
   methods: {
     ...mapActions(["pushArticle"]),
